@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b5d2a" />
+  <title>Your's Veggies | Fresh Vegetables Delivered</title>
+  <meta name="description" content="Fresh, handpicked vegetables delivered to your home near Diamond Harbour, South 24 Parganas." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --green:#0b5d2a; --green2:#2f8f32; --lime:#74bd28; --cream:#f8f8ed;
+      --dark:#17331f; --muted:#68766c; --white:#fff; --line:#e2e8df;
+      --shadow:0 12px 35px rgba(20,65,30,.10); --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:"DM Sans",sans-serif;background:#fbfcf8;color:var(--dark)}
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    a{text-decoration:none;color:inherit}
+    .topbar{background:var(--green);color:#fff;text-align:center;padding:9px 15px;font-size:14px;font-weight:700}
+    .navbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav-inner{max-width:1200px;margin:auto;padding:13px 20px;display:flex;align-items:center;gap:18px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--green);font-size:22px}
+    .brand-mark{width:42px;height:42px;border-radius:50%;background:linear-gradient(145deg,var(--green),var(--lime));display:grid;place-items:center;color:white;font-size:22px}
+    .nav-links{display:flex;gap:24px;margin-left:auto;font-weight:600;color:#35513c}
+    .nav-links a:hover{color:var(--green)}
+    .nav-actions{display:flex;gap:9px;margin-left:15px}
+    .icon-btn,.cart-btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px}
+    .cart-btn{background:var(--green);color:#fff;border-color:var(--green);font-weight:700}
+    .cart-count{background:#fff;color:var(--green);padding:2px 7px;border-radius:99px;margin-left:5px}
+    .hero{max-width:1200px;margin:20px auto 0;padding:0 20px}
+    .hero-card{position:relative;overflow:hidden;border-radius:28px;box-shadow:var(--shadow);background:#eef5e7;min-height:420px}
+    .hero-card img{width:100%;height:100%;min-height:420px;object-fit:cover;display:block}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(247,250,238,.98) 0%,rgba(247,250,238,.88) 42%,rgba(247,250,238,.08) 75%)}
+    .hero-content{position:absolute;left:6%;top:50%;transform:translateY(-50%);max-width:510px}
+    .eyebrow{display:inline-block;background:#e5f4d7;color:var(--green);padding:8px 12px;border-radius:99px;font-weight:800;font-size:13px;margin-bottom:12px}
+    h1{font-family:"Playfair Display",serif;font-size:clamp(40px,6vw,70px);line-height:.98;margin:0 0 16px;color:var(--green)}
+    .hero-content p{font-size:18px;line-height:1.6;color:#38503e;margin:0 0 22px}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .primary,.secondary{border:0;border-radius:13px;padding:13px 18px;font-weight:800}
+    .primary{background:var(--green);color:#fff}.secondary{background:#fff;color:var(--green);border:1px solid #cfe0cf}
+    .benefits{max-width:1200px;margin:18px auto 0;padding:0 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .benefit{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;gap:12px;align-items:center}
+    .benefit .emoji{font-size:25px}.benefit strong{display:block;font-size:14px}.benefit span{font-size:12px;color:var(--muted)}
+    section{max-width:1200px;margin:58px auto;padding:0 20px}
+    .section-head{display:flex;justify-content:space-between;gap:15px;align-items:end;margin-bottom:22px}
+    .section-head h2{font-family:"Playfair Display",serif;font-size:38px;margin:0;color:var(--green)}
+    .section-head p{color:var(--muted);margin:5px 0 0}
+    .search{display:flex;gap:8px;min-width:280px}.search input{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff}
+    .chips{display:flex;gap:8px;overflow:auto;padding-bottom:6px;margin-bottom:18px}
+    .chip{border:1px solid var(--line);background:#fff;border-radius:99px;padding:9px 14px;white-space:nowrap;font-weight:700;color:#47604e}
+    .chip.active{background:#e5f4d7;border-color:#bcd99d;color:var(--green)}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .product{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 4px 18px rgba(20,65,30,.05);display:flex;flex-direction:column}
+    .product-visual{height:155px;background:linear-gradient(145deg,#f4f8e9,#e5f0dd);display:grid;place-items:center;font-size:74px}
+    .product-body{padding:15px;display:flex;flex-direction:column;gap:8px;flex:1}
+    .tag{font-size:11px;color:var(--green);font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+    .product h3{margin:0;font-size:18px}.product .unit{font-size:12px;color:var(--muted)}
+    .price{font-size:20px;font-weight:800;color:var(--green)}
+    .add-row{display:flex;gap:8px;margin-top:auto}.qty{display:flex;border:1px solid var(--line);border-radius:11px;overflow:hidden}
+    .qty button{border:0;background:#f4f7f1;width:34px}.qty input{border:0;width:38px;text-align:center;outline:none}
+    .add{flex:1;border:0;background:var(--green);color:#fff;border-radius:11px;font-weight:800}
+    .about{background:linear-gradient(135deg,#0b5d2a,#347f36);color:#fff;border-radius:25px;padding:38px;display:grid;grid-template-columns:1.4fr 1fr;gap:30px}
+    .about h2{font-family:"Playfair Display",serif;font-size:40px;margin:0 0 12px}.about p{line-height:1.7;color:#e6f2e6}
+    .about-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}.about-item{background:rgba(255,255,255,.11);padding:15px;border-radius:14px}
+    .contact{display:grid;grid-template-columns:1fr 1fr;gap:18px}.contact-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:25px;box-shadow:var(--shadow)}
+    .contact-card h3{margin-top:0}.contact-actions{display:flex;gap:10px;flex-wrap:wrap}
+    footer{background:#10291a;color:#dce9dc;margin-top:50px}.footer-inner{max-width:1200px;margin:auto;padding:32px 20px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .admin-panel{display:none;background:#fff;border:2px dashed #9fbe9f;border-radius:20px;padding:22px;margin-top:20px}
+    .admin-panel.open{display:block}.admin-tools{display:flex;gap:10px;flex-wrap:wrap}.admin-tools input,.admin-tools select{border:1px solid var(--line);padding:10px;border-radius:10px}
+    .admin-table{width:100%;border-collapse:collapse;margin-top:18px}.admin-table th,.admin-table td{border-bottom:1px solid var(--line);padding:10px;text-align:left}
+    .small-btn{border:1px solid var(--line);background:#fff;padding:8px 10px;border-radius:9px}.danger{color:#a51d1d}
+    .modal{position:fixed;inset:0;background:rgba(5,25,10,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}
+    .modal-card{background:#fff;border-radius:22px;max-width:460px;width:100%;padding:28px;box-shadow:0 25px 80px rgba(0,0,0,.25)}.modal-card h2{margin-top:0;color:var(--green)}
+    .field{margin:12px 0}.field label{display:block;font-weight:700;font-size:13px;margin-bottom:6px}.field input,.field select{width:100%;padding:12px;border:1px solid var(--line);border-radius:11px}
+    .cart-drawer{position:fixed;right:-440px;top:0;width:min(430px,100%);height:100vh;background:#fff;z-index:90;box-shadow:-15px 0 50px rgba(0,0,0,.15);transition:.3s;padding:22px;display:flex;flex-direction:column}
+    .cart-drawer.open{right:0}.cart-head{display:flex;justify-content:space-between;align-items:center}.cart-items{overflow:auto;flex:1;margin:15px 0}.cart-item{display:grid;grid-template-columns:48px 1fr auto;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}.cart-icon{background:#f0f6e8;border-radius:10px;display:grid;place-items:center;font-size:28px}
+    .cart-foot{border-top:1px solid var(--line);padding-top:15px}.total{display:flex;justify-content:space-between;font-size:20px;font-weight:800;margin-bottom:12px}
+    .notice{background:#eef8e7;color:#265c2e;border:1px solid #cde3c4;padding:11px;border-radius:11px;font-size:13px;margin-bottom:12px}
+    .empty{padding:40px;text-align:center;color:var(--muted);grid-column:1/-1;background:#fff;border-radius:16px;border:1px dashed var(--line)}
+    .floating{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;gap:9px}.float-btn{width:52px;height:52px;border-radius:50%;border:0;box-shadow:0 8px 25px rgba(0,0,0,.18);font-size:22px}
+    .wa{background:#20a957;color:#fff}.call{background:var(--green);color:#fff}
+    @media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}.benefits{grid-template-columns:repeat(2,1fr)}.about,.contact{grid-template-columns:1fr}.nav-links{display:none}.hero-content{left:5%;max-width:48%}}
+    @media(max-width:650px){.hero-card,.hero-card img{min-height:510px}.hero-overlay{background:linear-gradient(180deg,rgba(247,250,238,.96) 0%,rgba(247,250,238,.82) 55%,rgba(247,250,238,.18) 100%)}.hero-content{top:30%;left:6%;max-width:88%}.hero-content p{font-size:15px}.grid{grid-template-columns:repeat(2,1fr)}.section-head{display:block}.search{margin-top:15px}.benefits{grid-template-columns:1fr 1fr}.product-visual{height:125px;font-size:58px}.about{padding:25px}.about-list{grid-template-columns:1fr}.brand span{font-size:18px}.nav-inner{padding:10px 14px}.hero,section,.benefits{padding-left:14px;padding-right:14px}.hero{margin-top:12px}}
+    @media(max-width:420px){.grid{grid-template-columns:1fr 1fr;gap:10px}.product-body{padding:12px}.product h3{font-size:16px}.price{font-size:17px}.qty input{width:30px}.qty button{width:28px}}
+  </style>
+</head>
+<body>
+  <div class="topbar">🥬 Near Diamond Harbour • FREE HOME DELIVERY on orders above ₹100</div>
+
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a class="brand" href="#"><span class="brand-mark">🌿</span><span>Your's Veggies</span></a>
+      <div class="nav-links"><a href="#shop">Shop</a><a href="#why-us">Why Us</a><a href="#contact">Contact</a></div>
+      <div class="nav-actions">
+        <button class="icon-btn" onclick="openLocation()">📍 <span class="location-label">Set location</span></button>
+        <button class="cart-btn" onclick="toggleCart()">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <div class="hero-card">
+        <img src="assets/hero-banner.png" alt="Fresh vegetables from Your's Veggies">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <span class="eyebrow">FRESH • HANDPICKED • LOCAL</span>
+          <h1>Fresh Veggies,<br>Delivered to You.</h1>
+          <p>Quality vegetables for your everyday kitchen, carefully selected and delivered around Diamond Harbour.</p>
+          <div class="cta-row">
+            <a class="primary" href="#shop">Shop Vegetables</a>
+            <button class="secondary" onclick="openLocation()">📍 Add Delivery Location</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="benefits">
+      <div class="benefit"><span class="emoji">🥬</span><div><strong>Fresh Everyday</strong><span>Selected for quality</span></div></div>
+      <div class="benefit"><span class="emoji">🌱</span><div><strong>Handpicked Quality</strong><span>Carefully sourced</span></div></div>
+      <div class="benefit"><span class="emoji">🚚</span><div><strong>Fast Delivery</strong><span>Local home delivery</span></div></div>
+      <div class="benefit"><span class="emoji">🛡️</span><div><strong>Safe & Hygienic</strong><span>Cleanly packed</span></div></div>
+    </div>
+
+    <section id="shop">
+      <div class="section-head">
+        <div><h2>Today's Fresh Picks</h2><p>Choose what you need and add it to your basket.</p></div>
+        <div class="search"><input id="searchInput" type="search" placeholder="Search vegetables..." oninput="renderProducts()"></div>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div class="grid" id="productGrid"></div>
+
+      <div class="admin-panel" id="adminPanel">
+        <h3>🛠️ Owner Catalogue Manager</h3>
+        <p style="color:#68766c">Changes are saved in this browser. For a multi-device online store, connect this catalogue to a database/backend later.</p>
+        <div class="admin-tools">
+          <input id="newName" placeholder="Vegetable name">
+          <input id="newPrice" type="number" min="0" step="0.01" placeholder="Price ₹">
+          <input id="newUnit" placeholder="Unit e.g. 500 g">
+          <input id="newEmoji" placeholder="Emoji 🥕">
+          <select id="newCategory"><option>Vegetables</option><option>Leafy</option><option>Roots</option><option>Fruits</option><option>Others</option></select>
+          <button class="primary" onclick="addProduct()">+ Add vegetable</button>
+          <button class="small-btn" onclick="exportCatalogue()">⬇ Export Catalogue</button>
+          <button class="small-btn" onclick="document.getElementById('importFile').click()">⬆ Import Catalogue</button>
+          <button class="small-btn" onclick="resetCatalogue()">↺ Reset Default Catalogue</button>
+          <input id="importFile" type="file" accept=".json,application/json" style="display:none" onchange="importCatalogue(event)">
+        </div>
+        <table class="admin-table"><thead><tr><th>Item</th><th>Price</th><th>Unit</th><th>Category</th><th>Action</th></tr></thead><tbody id="adminRows"></tbody></table>
+      </div>
+    </section>
+
+    <section id="why-us">
+      <div class="about">
+        <div>
+          <h2>Good for You.<br>Good for Nature.</h2>
+          <p>We bring everyday vegetables closer to your kitchen with a simple local delivery service. Pick your vegetables online, enter your delivery location and send the order directly to us on WhatsApp.</p>
+          <p><strong>📍 Serving:</strong> Near Diamond Harbour, South 24 Parganas, West Bengal • PIN area: 74331</p>
+        </div>
+        <div class="about-list">
+          <div class="about-item">🌿 <strong>Fresh Selection</strong><br><small>Daily quality-focused sourcing.</small></div>
+          <div class="about-item">📦 <strong>Easy Ordering</strong><br><small>Basket → location → WhatsApp.</small></div>
+          <div class="about-item">🚚 <strong>Free Delivery</strong><br><small>For orders above ₹100.</small></div>
+          <div class="about-item">💬 <strong>Direct Support</strong><br><small>Call or WhatsApp us directly.</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head"><div><h2>Need Help?</h2><p>Talk to Your's Veggies directly.</p></div></div>
+      <div class="contact">
+        <div class="contact-card">
+          <h3>📱 WhatsApp Orders</h3>
+          <p>Send your basket directly to our WhatsApp and confirm your delivery.</p>
+          <div class="contact-actions"><button class="primary" onclick="sendWhatsApp()">Order on WhatsApp</button></div>
+        </div>
+        <div class="contact-card">
+          <h3>☎️ Call Us</h3>
+          <p>For availability, delivery areas, bulk orders or any questions.</p>
+          <div class="contact-actions"><a class="primary" id="callLink" href="tel:+919000000000">Call Now</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div><strong style="font-size:20px">🌿 Your's Veggies</strong><br><small>Fresh. Healthy. Delivered to You.</small></div>
+      <div>Near Diamond Harbour, South 24 Parganas, West Bengal<br>FREE HOME DELIVERY above ₹100</div>
+      <div><button class="secondary" onclick="ownerLogin()">Owner / Edit Catalogue</button></div>
+    </div>
+  </footer>
+
+  <div class="floating">
+    <button class="float-btn wa" onclick="sendWhatsApp()" title="WhatsApp">💬</button>
+    <a class="float-btn call" id="floatCall" href="tel:+919000000000" title="Call">☎</a>
+  </div>
+
+  <div class="modal" id="locationModal">
+    <div class="modal-card">
+      <h2>📍 Where should we deliver?</h2>
+      <p style="color:#68766c">Enter your location before placing the order. We currently serve areas near Diamond Harbour.</p>
+      <div class="field"><label>Name</label><input id="custName" placeholder="Your name"></div>
+      <div class="field"><label>Mobile number</label><input id="custPhone" type="tel" placeholder="10-digit mobile number"></div>
+      <div class="field"><label>Delivery address / locality</label><input id="custAddress" placeholder="House, road, locality"></div>
+      <div class="field"><label>PIN code</label><input id="custPin" value="74331" placeholder="PIN code"></div>
+      <div class="cta-row"><button class="primary" onclick="saveLocation()">Save Location</button><button class="secondary" onclick="closeLocation()">Later</button></div>
+    </div>
+  </div>
+
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-head"><h2 style="margin:0">Your Basket 🛒</h2><button class="icon-btn" onclick="toggleCart()">✕</button></div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-foot">
+      <div class="notice" id="deliveryNotice">Add items to see delivery details.</div>
+      <div class="total"><span>Total</span><span id="cartTotal">₹0</span></div>
+      <button class="primary" style="width:100%" onclick="checkout()">Proceed to WhatsApp</button>
+    </div>
+  </aside>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://vuonizsxyzmorfubcsif.supabase.co";
+const SUPABASE_KEY = "sb_publishable_KLbpb3fLKO4RZp3VHRFCDg_6bOMXXm8";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const CONFIG = {
+  whatsappNumber: "919434976357",
+  phoneNumber: "+919434976357",
+  serviceArea: "Near Diamond Harbour, South 24 Parganas, West Bengal — PIN 743331",
+  freeDeliveryAbove: 100
+};
+
+const defaultProducts = [
+  {id:1,name:"Potato",price:30,unit:"1 kg",emoji:"🥔",category:"Roots"},
+  {id:2,name:"Onion",price:35,unit:"1 kg",emoji:"🧅",category:"Roots"},
+  {id:3,name:"Tomato",price:40,unit:"1 kg",emoji:"🍅",category:"Fruits"},
+  {id:4,name:"Carrot",price:60,unit:"1 kg",emoji:"🥕",category:"Roots"},
+  {id:5,name:"Cauliflower",price:45,unit:"1 pc",emoji:"🥦",category:"Vegetables"},
+  {id:6,name:"Cabbage",price:35,unit:"1 pc",emoji:"🥬",category:"Vegetables"},
+  {id:7,name:"Green Capsicum",price:90,unit:"1 kg",emoji:"🫑",category:"Vegetables"},
+  {id:8,name:"Cucumber",price:40,unit:"1 kg",emoji:"🥒",category:"Vegetables"},
+  {id:9,name:"Spinach",price:25,unit:"1 bunch",emoji:"🌿",category:"Leafy"},
+  {id:10,name:"Green Chilli",price:70,unit:"250 g",emoji:"🌶️",category:"Vegetables"},
+  {id:11,name:"Brinjal",price:45,unit:"1 kg",emoji:"🍆",category:"Vegetables"},
+  {id:12,name:"Lady's Finger",price:55,unit:"1 kg",emoji:"🥒",category:"Vegetables"},
+  {id:13,name:"Pumpkin",price:35,unit:"1 kg",emoji:"🎃",category:"Vegetables"},
+  {id:14,name:"Beans",price:75,unit:"1 kg",emoji:"🫘",category:"Vegetables"},
+  {id:15,name:"Radish",price:35,unit:"1 kg",emoji:"🥕",category:"Roots"},
+  {id:16,name:"Coriander",price:15,unit:"1 bunch",emoji:"🌿",category:"Leafy"}
+];
+
+let products = defaultProducts.map(p=>({...p}));
+let cart = JSON.parse(localStorage.getItem("yv_cart") || "{}");
+let category = "All";
+let customer = JSON.parse(localStorage.getItem("yv_customer") || "null");
+
+function money(n){return "₹"+Number(n).toFixed(0)}
+function saveAll(){localStorage.setItem("yv_cart",JSON.stringify(cart))}
+
+async function loadProducts(){
+  const {data,error}=await db.from("products").select("id,name,price,unit,emoji,category,available").eq("available",true).order("id");
+  if(error){
+    console.error(error);
+    alert("Could not load the online vegetable catalogue. Showing the default catalogue instead.");
+    return;
+  }
+  if(data && data.length){
+    products=data.map(p=>({id:p.id,name:p.name,price:Number(p.price),unit:p.unit||"1 kg",emoji:p.emoji||"🥬",category:p.category||"Vegetables"}));
+  }
+}
+function categories(){return ["All",...new Set(products.map(p=>p.category))]}
+function renderChips(){
+  document.getElementById("chips").innerHTML=categories().map(c=>`<button class="chip ${category===c?'active':''}" onclick="category='${c}';renderChips();renderProducts()">${c}</button>`).join("");
+}
+function renderProducts(){
+  const q=(document.getElementById("searchInput").value||"").toLowerCase();
+  const list=products.filter(p=>(category==="All"||p.category===category)&&p.name.toLowerCase().includes(q));
+  const grid=document.getElementById("productGrid");
+  grid.innerHTML=list.length?list.map(p=>`
+    <article class="product">
+      <div class="product-visual">${p.emoji||"🥬"}</div>
+      <div class="product-body">
+        <span class="tag">${p.category}</span>
+        <h3>${p.name}</h3>
+        <span class="unit">${p.unit}</span>
+        <div class="price">${money(p.price)}</div>
+        <div class="add-row">
+          <div class="qty"><button onclick="changeQty(${p.id},-1)">−</button><input id="qty-${p.id}" type="number" min="1" value="1"><button onclick="changeQty(${p.id},1)">+</button></div>
+          <button class="add" onclick="addToCart(${p.id})">Add</button>
+        </div>
+      </div>
+    </article>`).join(""):`<div class="empty">No vegetables found. Try another search.</div>`;
+}
+function changeQty(id,delta){const el=document.getElementById("qty-"+id);el.value=Math.max(1,(parseInt(el.value)||1)+delta)}
+function addToCart(id){
+  const qty=Math.max(1,parseInt(document.getElementById("qty-"+id).value)||1);
+  cart[id]=(cart[id]||0)+qty; saveAll(); renderCart(); document.getElementById("cartDrawer").classList.add("open");
+}
+function cartData(){return Object.entries(cart).map(([id,qty])=>{const p=products.find(x=>x.id==id);return p?{...p,qty}:null}).filter(Boolean)}
+function renderCart(){
+  const items=cartData(), total=items.reduce((s,p)=>s+p.price*p.qty,0);
+  document.getElementById("cartCount").textContent=items.reduce((s,p)=>s+p.qty,0);
+  document.getElementById("cartTotal").textContent=money(total);
+  document.getElementById("cartItems").innerHTML=items.length?items.map(p=>`
+    <div class="cart-item">
+      <div class="cart-icon">${p.emoji}</div>
+      <div><strong>${p.name}</strong><br><small>${p.unit} × ${p.qty}</small><br><b>${money(p.price*p.qty)}</b></div>
+      <button class="small-btn" onclick="removeItem(${p.id})">✕</button>
+    </div>`).join(""):`<div style="padding:45px 10px;text-align:center;color:#68766c">Your basket is empty.<br>Add some fresh vegetables 🥬</div>`;
+  document.getElementById("deliveryNotice").textContent=total>=CONFIG.freeDeliveryAbove
+    ?"🎉 You qualify for FREE HOME DELIVERY."
+    :`Add ${money(CONFIG.freeDeliveryAbove-total)} more to unlock FREE HOME DELIVERY.`;
+}
+function removeItem(id){delete cart[id];saveAll();renderCart()}
+function toggleCart(){document.getElementById("cartDrawer").classList.toggle("open")}
+function openLocation(){document.getElementById("locationModal").classList.add("open")}
+function closeLocation(){document.getElementById("locationModal").classList.remove("open")}
+function saveLocation(){
+  customer={name:document.getElementById("custName").value.trim(),phone:document.getElementById("custPhone").value.trim(),address:document.getElementById("custAddress").value.trim(),pin:document.getElementById("custPin").value.trim()};
+  localStorage.setItem("yv_customer",JSON.stringify(customer)); closeLocation(); updateLocationLabel();
+}
+function updateLocationLabel(){
+  const el=document.querySelector(".location-label");
+  el.textContent=customer&&customer.address?customer.address.slice(0,18)+(customer.address.length>18?"…":""):"Set location";
+}
+function orderText(){
+  const items=cartData(), total=items.reduce((s,p)=>s+p.price*p.qty,0);
+  let t=`Hello Your's Veggies! I would like to order:%0A%0A`;
+  items.forEach(p=>t+=`• ${p.name} — ${p.qty} × ${p.unit} = ${money(p.price*p.qty)}%0A`);
+  t+=`%0ATotal: ${money(total)}%0A`;
+  if(total>=CONFIG.freeDeliveryAbove)t+=`Delivery: FREE%0A`;
+  if(customer)t+=`%0ACustomer: ${customer.name||"-"}%0AMobile: ${customer.phone||"-"}%0AAddress: ${customer.address||"-"}, PIN ${customer.pin||"-"}%0A`;
+  t+=`%0AService area: ${CONFIG.serviceArea}`;
+  return t;
+}
+function sendWhatsApp(){
+  if(!cartData().length){alert("Please add at least one vegetable to your basket.");return}
+  if(!customer)openLocation();
+  else window.open("https://wa.me/"+CONFIG.whatsappNumber+"?text="+orderText(),"_blank");
+}
+function checkout(){
+  if(!cartData().length){alert("Your basket is empty.");return}
+  if(!customer){openLocation();return}
+  window.open("https://wa.me/"+CONFIG.whatsappNumber+"?text="+orderText(),"_blank");
+}
+function ownerLogin(){
+  window.location.href="admin.html";
+}
+function exportCatalogue(){
+  const blob=new Blob([JSON.stringify(products,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;a.download="yours-veggies-catalogue.json";a.click();
+  URL.revokeObjectURL(url);
+}
+function importCatalogue(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      if(!Array.isArray(data))throw new Error("Invalid catalogue");
+      products=data.map((p,i)=>({
+        id:Number(p.id)||Date.now()+i,
+        name:String(p.name||"Vegetable"),
+        price:Number(p.price)||0,
+        unit:String(p.unit||"1 kg"),
+        emoji:String(p.emoji||"🥬"),
+        category:String(p.category||"Vegetables")
+      }));
+      saveAll();renderChips();renderProducts();renderCart();renderAdmin();
+      alert("Catalogue imported successfully.");
+    }catch(e){alert("Could not import this catalogue file.");}
+  };
+  reader.readAsText(file);
+  event.target.value="";
+}
+function resetCatalogue(){
+  if(confirm("Reset the catalogue to the original vegetables and prices?")){
+    products=defaultProducts.map(p=>({...p}));
+    cart={};
+    saveAll();renderChips();renderProducts();renderCart();renderAdmin();
+  }
+}
+function addProduct(){
+  const name=document.getElementById("newName").value.trim(), price=parseFloat(document.getElementById("newPrice").value);
+  if(!name||isNaN(price)){alert("Enter a vegetable name and price.");return}
+  products.push({id:Date.now(),name,price,unit:document.getElementById("newUnit").value.trim()||"1 kg",emoji:document.getElementById("newEmoji").value.trim()||"🥬",category:document.getElementById("newCategory").value});
+  saveAll(); renderChips();renderProducts();renderAdmin();
+  ["newName","newPrice","newUnit","newEmoji"].forEach(id=>document.getElementById(id).value="");
+}
+function editPrice(id){
+  const p=products.find(x=>x.id===id); const v=prompt(`New price for ${p.name}`,p.price);
+  if(v!==null&&!isNaN(parseFloat(v))){p.price=parseFloat(v);saveAll();renderProducts();renderAdmin()}
+}
+function deleteProduct(id){
+  const p=products.find(x=>x.id===id);if(confirm("Remove "+p.name+" from catalogue?")){products=products.filter(x=>x.id!==id);delete cart[id];saveAll();renderChips();renderProducts();renderCart();renderAdmin()}
+}
+function renderAdmin(){
+  document.getElementById("adminRows").innerHTML=products.map(p=>`<tr><td>${p.emoji} ${p.name}</td><td>${money(p.price)}</td><td>${p.unit}</td><td>${p.category}</td><td><button class="small-btn" onclick="editPrice(${p.id})">Edit price</button> <button class="small-btn danger" onclick="deleteProduct(${p.id})">Delete</button></td></tr>`).join("");
+}
+document.getElementById("callLink").href="tel:"+CONFIG.phoneNumber;
+document.getElementById("floatCall").href="tel:"+CONFIG.phoneNumber;
+async function initStore(){
+  await loadProducts();
+  renderChips();renderProducts();renderCart();updateLocationLabel();
+  if(!customer)setTimeout(openLocation,650);
+}
+initStore();
+</script>
+</body>
+</html>
